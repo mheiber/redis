@@ -657,10 +657,16 @@ long long RM_Milliseconds(void) {
  * Automatic memory management for modules
  * -------------------------------------------------------------------------- */
 
-/* Enable automatic memory management. See API.md for more information.
+/* Enable automatic memory management. When using automatic memory management,
+ * you do not need to explicitly free `RedisModuleCallReply`,
+ * `RedisModuleString`, and `RedisModuleKey` objects created in the current
+ * `RedisModuleCtx`. These objects will be released automatically when the
+ * callback returns.
  *
  * The function must be called as the first function of a command implementation
- * that wants to use automatic memory. */
+ * that wants to use automatic memory. 
+ * 
+ * For automatically managing memory for other types, see `RedisModulePoolAlloc`.*/
 void RM_AutoMemory(RedisModuleCtx *ctx) {
     ctx->flags |= REDISMODULE_CTX_AUTO_MEMORY;
 }

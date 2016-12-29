@@ -169,10 +169,16 @@ Return the current UNIX time in milliseconds.
 
     void RM_AutoMemory(RedisModuleCtx *ctx);
 
-Enable automatic memory management. See API.md for more information.
+Enable automatic memory management. When using automatic memory management,
+ you do not need to explicitly free `RedisModuleCallReply`,
+ `RedisModuleString`, and `RedisModuleKey` objects created in the current
+ `RedisModuleCtx`. These objects will be released automatically when the
+  callback returns.
 
-The function must be called as the first function of a command implementation
-that wants to use automatic memory.
+ The function must be called as the first function of a command implementation
+ that wants to use automatic memory. 
+ 
+ For automatically managing memory for other types, see `RedisModulePoolAlloc`.
 
 ## `RM_CreateString`
 
